@@ -7,15 +7,15 @@ $ && $(function(){
 		var tag_array = data_tags.split(",");
 		console.log(tag_array);
 		tag_array.push(new_tag)
+
 		console.log(tag_array);
 		tag_array = $.grep(tag_array, function(v,i){
 			console.log(v,$.inArray(v,tag_array),tag_array, v == '');
 			if(v == '') return false;
 		    return $.inArray(v,tag_array) === i
 		});
-		
-
 		$target.data('tags',tag_array.join(',') );
+		$target.trigger('tag_added',new_tag);
 	}
 	var record_tags = function(e){
 		$.each($(e.target).val().split(/,/),function(i,v){
@@ -25,6 +25,7 @@ $ && $(function(){
 			}
 		});
 		$(e.target).val('');
+
 	}
 
 	$('.tag-entry').keyup(function(e){
@@ -36,5 +37,6 @@ $ && $(function(){
 		return e.keyCode != 13;
 	}).each(function(i,v){
 		tag_elements.push(v);
-	}) 
+	})
+
 })
